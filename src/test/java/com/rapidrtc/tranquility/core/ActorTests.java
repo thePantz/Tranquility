@@ -1,5 +1,6 @@
 package com.rapidrtc.tranquility.core;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -7,13 +8,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class ActorTests {
+
+    Actor actor;
+
+    @Before
+    public void BeforeTest(){
+        actor = Actor.named("Test Actor");
+    }
+
     @Test
     public void Named_ShouldAddName(){
         // Arrange
         String expectedName = "Test Actor";
-
-        // Act
-        Actor actor = Actor.named(expectedName);
 
         // Assert
         assertThat(actor.getName(), equalTo(expectedName));
@@ -24,7 +30,6 @@ public class ActorTests {
         // Arrange
         TestAbility ability = new TestAbility();
         OtherTestAbility otherTestAbility = new OtherTestAbility();
-        Actor actor = Actor.named("Test Actor");
 
         // Act
         actor.can(ability);
@@ -37,9 +42,6 @@ public class ActorTests {
 
     @Test
     public void AbilityTo_IfActorDoesNotHaveAbility_ShouldReturnNull() {
-        // Arrange
-        Actor actor = Actor.named("Test Actor");
-
         // Act
         TestAbility result = actor.abilityTo(TestAbility.class);
 
@@ -50,7 +52,6 @@ public class ActorTests {
     @Test
     public void AttemptsTo_ShouldPerformAllActions(){
         // Arrange
-        Actor actor = Actor.named("Test Actor");
         TestPerformable performable1 = new TestPerformable();
         TestPerformable performable2 = new TestPerformable();
         TestPerformable performable3 = new TestPerformable();
@@ -67,7 +68,6 @@ public class ActorTests {
     @Test
     public void AsksFor_ShouldReturnAnswer(){
         // Arrange
-        Actor actor = Actor.named("Test Actor");
         TestStringQuestion stringQuestion = new TestStringQuestion();
         TestIntQuestion intQuestion = new TestIntQuestion();
 
